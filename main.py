@@ -8,6 +8,7 @@ root =  tk.Tk()
 root.title("Garden Reminders")
 #Set the default size of the window, as well as the layout
 root.geometry("1200x600")
+root.configure(bg="#4A5D23")
 root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
 root.grid_columnconfigure(1, weight=1)
@@ -61,7 +62,7 @@ timeline_tree.heading("Prune", text="Prune")
 # month, day format for dates
 # order: plant name, start indoors, sow, transplant, harvest, fertilize, prune
 plant_data = [
-    ("Test", "September 11", None, None, None, None, None),
+    ("Test", "September 16", None, None, None, None, None),
     ("Tomatoes", "February 15", "April 1", "April 15", "July 1", None, None),
     ("Potatoes", None, "January 20", None, "June 15", None, None),
     ("Garlic", None, "September 1", None, "July 15", None, None),
@@ -165,6 +166,20 @@ def check_tasks():
                     #Add the task if it's not already on the list
                     if task_str not in tasks_due:
                         task_listbox.insert(tk.END, task_str)
+
+# Function to remove selected tasks from the listbox
+def remove_completed_tasks():
+    """Removes selected tasks from the task listbox. Select the task you would like to remove,
+    then click Remove Completed Tasks button"""
+    #get index of selected task
+    selected_tasks = task_listbox.curselection()
+    #remove tasks from end first (avoids index shifting)
+    for index in reversed(selected_tasks):
+        task_listbox.delete(index)
+
+#add teh Remove Completed Tasks button (calls remove_completed_tasks when clicked)
+remove_button = tk.Button(task_frame, text="Remove Completed Tasks", command=remove_completed_tasks)
+remove_button.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
 
 # function to check tasks. run check_tasks every hour and when new plant is selected
 def schedule_task_check():
