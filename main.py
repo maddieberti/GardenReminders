@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import ttk
 from datetime import date, datetime
+from plyer import notification
 
 root =  tk.Tk()
 #Set the title displayed on the window
@@ -166,6 +167,16 @@ def check_tasks():
                     #Add the task if it's not already on the list
                     if task_str not in tasks_due:
                         task_listbox.insert(tk.END, task_str)
+                        notify_user(task_str)
+
+#function to notify the user
+def notify_user(task_str):
+    notification.notify(
+        title='Garden Reminder',
+        message=f'Time to do: {task_str}',
+        app_name='Garden Reminders',
+        timeout=10  # Notification duration in seconds
+    )
 
 # Function to remove selected tasks from the listbox
 def remove_completed_tasks():
