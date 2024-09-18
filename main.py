@@ -3,6 +3,9 @@ import tkinter as tk
 from tkinter import ttk
 from datetime import date, datetime
 from plyer import notification
+import pickle
+import os
+from playsound3 import playsound
 
 root =  tk.Tk()
 #Set the title displayed on the window
@@ -14,6 +17,29 @@ root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
 root.grid_columnconfigure(1, weight=1)
 
+#get home directory (application kept creating new folders when I changed my working directory)
+home_dir = os.path.expanduser("~")
+
+#define folder for app data
+app_data_folder = os.path.join(home_dir, ".garden_reminders")
+#if folder doesn't already exist
+if not os.path.exists(app_data_folder):
+    #make a folder for the application data
+    os.makedirs(app_data_folder)
+#define path to the app save data file
+DATA_FILE = os.path.join(app_data_folder, 'garden_data.pkl')
+
+#Did not get a sound with the regular plyer notification, so added playsound3 to make it more noticeable
+#when a notification comes up in the user desktop.
+#find where Python script is running(avoid lookig for the sound in the wrong place)
+script_folder = os.path.dirname(os.path.abspath(__file__))
+#define path to the sound files (notification and startup, respectively)
+notification_sound_path = os.path.join(script_folder, 'leaves_notification_sound.mp3')
+startup_sound_path = os.path.join(script_folder, 'startup_bubble_sound.mp3')
+
+#play startup sound
+playsound(startup_sound_path)
+
 #List of plants
 plants = ["Test", "Potatoes", "Garlic", "Tomatoes", "Peppers", "Cilantro", "Carrots", "Cucumber", "Broccoli", "Blackberries"]
 #Frame/container for selecting plants
@@ -24,7 +50,7 @@ plant_frame.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 plant_frame.grid_rowconfigure(0, weight=1)
 plant_frame.grid_columnconfigure(0, weight=1)
 
-#Dictionary that holds state of check boxes/selection status of plants
+#Dictionary that holds bool state of check boxes/selection status of plants
 plant_vars = {}
 
 #loop to make checkboxes for every plant
@@ -63,7 +89,7 @@ timeline_tree.heading("Prune", text="Prune")
 # month, day format for dates
 # order: plant name, start indoors, sow, transplant, harvest, fertilize, prune
 plant_data = [
-    ("Test", "September 16", None, None, None, None, None),
+    ("Test", "September 17", "September 18", "September 19", "September 20", "September 21", "September 22"),
     ("Tomatoes", "February 15", "April 1", "April 15", "July 1", None, None),
     ("Potatoes", None, "January 20", None, "June 15", None, None),
     ("Garlic", None, "September 1", None, "July 15", None, None),
@@ -134,6 +160,36 @@ task_frame.grid_columnconfigure(0, weight=1)
 task_listbox = tk.Listbox(task_frame, selectmode="extended", height=10)
 task_listbox.grid(row=1, column=0, padx=5, pady=5, sticky="nsew")
 
+#function to save data using pickle
+def save_data():
+    """Saves the state of the selected plants and to-do list tasks to a file."""
+    data = {
+        "selected_plants": {plant: var.get() for plant, var in plant_vars.items()},
+        "tasks": task_listbox.get(0, tk.END)
+    }
+    with open(DATA_FILE, 'wb') as file:
+        pickle.dump(data, file)
+
+#function to load data
+def load_data():
+    """Loads the state of the selected plants and to-do list tasks from a file."""
+    #if path with save data exists:
+    if os.path.exists(DATA_FILE):
+        #open and load the data with pickle
+        with open(DATA_FILE, 'rb') as file:
+            data = pickle.load(file)
+            # Restore plant selections
+            for plant, selected in data["selected_plants"].items():
+                if plant in plant_vars:
+                    plant_vars[plant].set(selected)
+            #clear tasks before loading(otherwise duplicates appear)
+            task_listbox.delete(0, tk.END)
+            # Restore tasks in the to-do list
+            for task in data["tasks"]:
+                task_listbox.insert(tk.END, task)
+
+
+
 
 # function to check for tasks due today
 def check_tasks():
@@ -153,21 +209,20 @@ def check_tasks():
                 # convert task_date from string to tuple if it's a string
                 if isinstance(task_date, str):
                     try:
-                        #parse the date
                         task_date_obj = parse_date(task_date)
-                        task_date_tuple = (task_date_obj.month, task_date_obj.day) if task_date_obj else None
+                        if task_date_obj and (task_date_obj.month, task_date_obj.day) == today_formatted:
+                            task_str = f"{plant} - {task_name}"
+                            #if the task isn't already in task list
+                            if task_str not in tasks_due:
+                                #add the task to the task list
+                                task_listbox.insert(tk.END, task_str)
+                                tasks_due.add(task_str)
+                                #notify the user that a task has been added
+                                notify_user(task_str)
+                                #save the task list
+                                save_data()
                     except ValueError:
-                        task_date_tuple = None
-                else:
-                    task_date_tuple = None
-                #
-                if task_date_tuple == today_formatted:
-                    # declare a string for the task so we can check if it's already in the list
-                    task_str = f"{plant}: {task_name}"
-                    #Add the task if it's not already on the list
-                    if task_str not in tasks_due:
-                        task_listbox.insert(tk.END, task_str)
-                        notify_user(task_str)
+                        continue
 
 #function to notify the user
 def notify_user(task_str):
@@ -175,8 +230,9 @@ def notify_user(task_str):
         title='Garden Reminder',
         message=f'Time to do: {task_str}',
         app_name='Garden Reminders',
-        timeout=10  # Notification duration in seconds
+        timeout=1  # Notification duration
     )
+    playsound(notification_sound_path)
 
 # Function to remove selected tasks from the listbox
 def remove_completed_tasks():
@@ -187,6 +243,8 @@ def remove_completed_tasks():
     #remove tasks from end first (avoids index shifting)
     for index in reversed(selected_tasks):
         task_listbox.delete(index)
+    #save the updated task list
+    save_data()
 
 #add teh Remove Completed Tasks button (calls remove_completed_tasks when clicked)
 remove_button = tk.Button(task_frame, text="Remove Completed Tasks", command=remove_completed_tasks)
@@ -205,5 +263,7 @@ def schedule_task_check():
 
 #call schedule_task_check upon running to check for tasks due today and then check again every hour
 schedule_task_check()
+
+load_data()
 
 root.mainloop()
