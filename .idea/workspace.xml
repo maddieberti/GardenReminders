@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4095860-02b6-4702-8d3e-18f7c3dc36f2" name="Changes" comment="Switched all .pack instances to .grid to better control the sizing of the frames and widgets when the window is resized. Added frame for task list. Added more precise dates to plant_data to begin implementation of checkbox/date checking to add tasks to list when date arrives. Added check_tasks function to check which tasks are due when application runs. Defined function schedule_task_check to check for tasks periodically, and when plants are selected or deselected.  Implemented logic to add tasks to the task list, Added a function to format the dates in the Treeview.">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leaves_notification_sound.mp3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startup_bubble_sound.mp3" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,35 +21,44 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "maddieberti"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;maddieberti&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/maddieberti/GardenReminders.git",
-    "accountId": "0cf42b26-00bf-4d88-9027-60d4395df54f"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/maddieberti/GardenReminders.git&quot;,
+    &quot;accountId&quot;: &quot;0cf42b26-00bf-4d88-9027-60d4395df54f&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2ltdRFEwfYILOq5JdcTGNGa4rhl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;packaging&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/maddieberti/PycharmProjects/GardenReminders&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="GardenReminders" />
@@ -110,5 +124,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Switched all .pack instances to .grid to better control the sizing of the frames and widgets when the window is resized. Added frame for task list. Added more precise dates to plant_data to begin implementation of checkbox/date checking to add tasks to list when date arrives. Added check_tasks function to check which tasks are due when application runs. Defined function schedule_task_check to check for tasks periodically, and when plants are selected or deselected.  Implemented logic to add tasks to the task list, Added a function to format the dates in the Treeview." />
     <option name="LAST_COMMIT_MESSAGE" value="Switched all .pack instances to .grid to better control the sizing of the frames and widgets when the window is resized. Added frame for task list. Added more precise dates to plant_data to begin implementation of checkbox/date checking to add tasks to list when date arrives. Added check_tasks function to check which tasks are due when application runs. Defined function schedule_task_check to check for tasks periodically, and when plants are selected or deselected.  Implemented logic to add tasks to the task list, Added a function to format the dates in the Treeview." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>259</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

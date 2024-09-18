@@ -1,4 +1,9 @@
-#GardenReminders
+#GardenReminders zone 7a. This application sends desktop notifications
+#for commonly cultivated plants in hardiness zone 7a.
+#reminders include when to sow, start, transplant, harvest, prune, and
+#fertilize, based on the earliest likely date one should perform those
+#tasks in zone 7a.
+
 import tkinter as tk
 from tkinter import ttk
 from datetime import date, datetime
@@ -6,10 +11,11 @@ from plyer import notification
 import pickle
 import os
 from playsound3 import playsound
+import PyInstaller
 
 root =  tk.Tk()
 #Set the title displayed on the window
-root.title("Garden Reminders")
+root.title("Zone 7a Garden Reminders")
 #Set the default size of the window, as well as the layout
 root.geometry("1200x600")
 root.configure(bg="#4A5D23")
@@ -34,8 +40,8 @@ DATA_FILE = os.path.join(app_data_folder, 'garden_data.pkl')
 #find where Python script is running(avoid lookig for the sound in the wrong place)
 script_folder = os.path.dirname(os.path.abspath(__file__))
 #define path to the sound files (notification and startup, respectively)
-notification_sound_path = os.path.join(script_folder, 'leaves_notification_sound.mp3')
-startup_sound_path = os.path.join(script_folder, 'startup_bubble_sound.mp3')
+notification_sound_path = os.path.join(script_folder, 'sounds', 'leaves_notification_sound.mp3')
+startup_sound_path = os.path.join(script_folder, 'sounds', 'startup_bubble_sound.mp3')
 
 #play startup sound
 playsound(startup_sound_path)
