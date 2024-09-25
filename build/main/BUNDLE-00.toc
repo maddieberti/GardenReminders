@@ -1,0 +1,3 @@
+([('GardenReminders',
+   '/Users/maddieberti/PycharmProjects/GardenReminders/dist/GardenReminders',
+   'EXECUTABLE')],)
