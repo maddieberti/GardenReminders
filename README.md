@@ -4,13 +4,13 @@ Zone 7a Garden Reminders is a desktop application designed for gardeners in hard
 
 ## Table of Contents
 
-- Features
-- Installation
-- Usage
-- Plants Included
-- Notifications and Sounds
-- Data Storage
-- Dependencies
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Plants Included](#plants-included)
+- [Notifications and Sounds](#notifications-and-sounds)
+- [Data Storage](#data-storage)
+- [Dependencies](#dependencies)
 
 ## Features
 
