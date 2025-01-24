@@ -95,7 +95,7 @@ timeline_tree.heading("Prune", text="Prune")
 # month, day format for dates
 # order: plant name, start indoors, sow, transplant, harvest, fertilize, prune
 plant_data = [
-    ("Test", "September 17", "September 18", "September 19", "September 20", "September 21", "September 22"),
+    ("Test", "January 24", "September 18", "September 19", "September 20", "September 21", "September 22"),
     ("Tomatoes", "February 15", "April 1", "April 15", "July 1", None, None),
     ("Potatoes", None, "January 20", None, "June 15", None, None),
     ("Garlic", None, "September 1", None, "July 15", None, None),
